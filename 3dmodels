@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound and Vision Design - Conference Room Models</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #0073b7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .subtitle {
+            font-size: 16px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+        .tab.active {
+            background-color: #0073b7;
+            color: white;
+            border-color: #0073b7;
+        }
+        .room-selector {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .room-selector h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .room-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .room-button {
+            padding: 10px 20px;
+            background-color: #4472C4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+        .room-button:hover {
+            background-color: #365aa1;
+        }
+        .room-button.active {
+            background-color: #1a4789;
+            font-weight: bold;
+        }
+        .content {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .content.active {
+            display: block;
+        }
+        .model-container {
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .room-details {
+            margin-top: 20px;
+        }
+        .room-details h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .equipment-list {
+            columns: 2;
+            margin-top: 15px;
+        }
+        .equipment-list li {
+            margin-bottom: 8px;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .room-buttons {
+                flex-direction: column;
+            }
+            .equipment-list {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo-finalized.png" alt="Sound and Vision Design Logo" class="logo">
+            <h1>MWAA A/V Implementation Project</h1>
+            <div class="subtitle">Interactive 3D Conference Room Models</div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('models')">3D Models</div>
+            <div class="tab" onclick="openTab('specs')">Room Specifications</div>
+            <div class="tab" onclick="openTab('about')">About the Project</div>
+        </div>
+
+        <div id="models" class="content active">
+            <div class="room-selector">
+                <h3>Select Conference Room Size:</h3>
+                <div class="room-buttons">
+                    <div class="room-button" onclick="changeRoom('small')" id="btn-small">Small Room (1-4 persons)</div>
+                    <div class="room-button active" onclick="changeRoom('medium')" id="btn-medium">Medium Room (5-10 persons)</div>
+                    <div class="room-button" onclick="changeRoom('large')" id="btn-large">Large Room (11-25 persons)</div>
+                </div>
+            </div>
+
+            <div class="model-container">
+                <iframe id="room-frame" src="mwaa_av_models/mwaa_medium_conference_room_20250320_143902.html" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div id="specs" class="content">
+            <div class="room-selector">
+                <h3>Select Conference Room Size:</h3>
+                <div class="room-buttons">
+                    <div class="room-button" onclick="changeRoomSpecs('small')" id="spec-btn-small">Small Room (1-4 persons)</div>
+                    <div class="room-button active" onclick="changeRoomSpecs('medium')" id="spec-btn-medium">Medium Room (5-10 persons)</div>
+                    <div class="room-button" onclick="changeRoomSpecs('large')" id="spec-btn-large">Large Room (11-25 persons)</div>
+                </div>
+            </div>
+
+            <div class="room-details" id="small-specs" style="display: none;">
+                <h3>Small Conference Room Specifications</h3>
+                <p>The small conference room is designed for 1-4 people, providing essential A/V capabilities for intimate meetings and discussions.</p>
+                <h4>Equipment List:</h4>
+                <ul class="equipment-list">
+                    <li>One 43" television monitor on wall mount</li>
+                    <li>CATV connection routed directly to display</li>
+                    <li>Sound through display speakers</li>
+                    <li>TV's IR remote for channel selection and volume control</li>
+                    <li>Wall-mounted cable management system</li>
+                    <li>Standard conference table for up to 4 people</li>
+                </ul>
+            </div>
+
+            <div class="room-details" id="medium-specs">
+                <h3>Medium Conference Room Specifications</h3>
+                <p>The medium conference room accommodates 5-10 people and features enhanced A/V capabilities for effective team collaboration and presentations.</p>
+                <h4>Equipment List:</h4>
+                <ul class="equipment-list">
+                    <li>One 65" display on tilting wall mount</li>
+                    <li>Airtame 2 wireless presentation system via MWAA Wi-Fi</li>
+                    <li>CATV connection for television viewing</li>
+                    <li>Pan/Tilt/Zoom web camera with USB connection</li>
+                    <li>HDMI extension system from table to display</li>
+                    <li>USB microphone/speaker for video conferencing</li>
+                    <li>Sound bar mounted under display for audio amplification</li>
+                    <li>TV's IR remote for room control</li>
+                    <li>Conference table with integrated cable management</li>
+                </ul>
+            </div>
+
+            <div class="room-details" id="large-specs" style="display: none;">
+                <h3>Large Conference Room Specifications</h3>
+                <p>The large conference room is designed for 11-25 people with comprehensive A/V solutions for board meetings, presentations, and video conferencing.</p>
+                <h4>Equipment List:</h4>
+                <ul class="equipment-list">
+                    <li>109" diagonal projection screen</li>
+                    <li>Short-throw projector (920×1200 resolution)</li>
+                    <li>75" Interactive Touch Monitor</li>
+                    <li>Floor laptop video routing through table grommets</li>
+                    <li>Airtame wireless presentation system</li>
+                    <li>TV Tuner for television viewing</li>
+                    <li>Small form factor PC for presentations</li>
+                    <li>65" TV for additional display</li>
+                    <li>Video matrix switcher</li>
+                    <li>Pan/Tilt/Zoom camera for video conferencing</li>
+                    <li>Six table microphones for audio conferencing</li>
+                    <li>Four recessed ceiling speakers</li>
+                    <li>Integrated audio teleconferencing system</li>
+                    <li>7" wired touch panel for A/V control</li>
+                    <li>Equipment rack for system components</li>
+                    <li>Large conference table with cable management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="about" class="content">
+            <h2>About the MWAA A/V Implementation Project</h2>
+            <p>Sound and Vision Design is proud to present our comprehensive A/V implementation proposal for the Metropolitan Washington Airports Authority. This project encompasses the design, installation, and support of audio-visual systems across multiple MWAA facilities.</p>
+            
+            <h3>Project Overview</h3>
+            <p>Our implementation plan includes:</p>
+            <ul>
+                <li>Standardized conference room designs for small, medium, and large meeting spaces</li>
+                <li>Custom solutions for specialized areas like the Board Conference Room and Emergency Operations Centers</li>
+                <li>Integration with existing MWAA infrastructure and systems</li>
+                <li>Comprehensive training and documentation</li>
+                <li>Ongoing maintenance and support services</li>
+            </ul>
+            
+            <h3>Service Locations</h3>
+            <p>The implementation will cover three primary service locations:</p>
+            <ul>
+                <li><strong>MWAA Corporate Headquarters (CHQ)</strong> - 26 conference rooms including specialized areas</li>
+                <li><strong>Reagan National Airport (DCA)</strong> - 8 conference rooms and specialized facilities</li>
+                <li><strong>Dulles International Airport (IAD)</strong> - 16 conference rooms and specialized facilities</li>
+            </ul>
+            
+            <h3>About These 3D Models</h3>
+            <p>The interactive 3D models presented here were created to provide a visual representation of our proposed A/V implementations. They demonstrate the layout, equipment placement, and overall design of each room type according to the specifications outlined in the RFP.</p>
+            
+            <p>For more information about our proposal or to discuss specific requirements, please contact our team at <a href="mailto:info@soundandvisiondesign.com">info@soundandvisiondesign.com</a>.</p>
+        </div>
+
+        <footer>
+            <p>© 2025 Sound and Vision Design. All rights reserved.</p>
+            <p>Proposal for Metropolitan Washington Airports Authority RFP XXX</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to open different tabs
+        function openTab(tabName) {
+            const contents = document.getElementsByClassName('content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Function to change 3D room model
+        function changeRoom(roomType) {
+            const iframe = document.getElementById('room-frame');
+            const timestamp = new Date().toISOString().replace(/[-:]/g, '').substring(0, 15);
+            
+            // Update iframe source
+            iframe.src = `mwaa_av_models/mwaa_${roomType}_conference_room_20250320_143902.html`;
+            
+            // Update active button
+            document.getElementById('btn-small').classList.remove('active');
+            document.getElementById('btn-medium').classList.remove('active');
+            document.getElementById('btn-large').classList.remove('active');
+            document.getElementById(`btn-${roomType}`).classList.add('active');
+        }
+        
+        // Function to change room specifications
+        function changeRoomSpecs(roomType) {
+            // Hide all specs
+            document.getElementById('small-specs').style.display = 'none';
+            document.getElementById('medium-specs').style.display = 'none';
+            document.getElementById('large-specs').style.display = 'none';
+            
+            // Show selected specs
+            document.getElementById(`${roomType}-specs`).style.display = 'block';
+            
+            // Update active button
+            document.getElementById('spec-btn-small').classList.remove('active');
+            document.getElementById('spec-btn-medium').classList.remove('active');
+            document.getElementById('spec-btn-large').classList.remove('active');
+            document.getElementById(`spec-btn-${roomType}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
